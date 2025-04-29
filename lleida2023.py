@@ -32,7 +32,7 @@ plt.grid(True)
 plt.savefig(r"D:\TFM 2025\estadistica_lleida\graficas\estadisticalleidaBlat2023.jpg")
 #plt.show()
 
-rendimiento_Ordi = df_a[df_a['Cultivo'] == 'Ordi']['Rendimiento  (Kg/Ha.)']
+#rendimiento_Ordi = df_a[df_a['Cultivo'] == 'Ordi']['Rendimiento  (Kg/Ha.)']
 media = rendimiento_Ordi.mean()
 std = rendimiento_Ordi.std()
 x = np.linspace(rendimiento_Ordi.min(), rendimiento_Ordi.max(), 100)
