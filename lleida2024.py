@@ -65,18 +65,24 @@ df_filtrado2024b.to_excel(r"D:\TFM 2025\TUTORES\Dades produccio per validacions\
 df_d = r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Coop_Bellvis MunLleida\RENDIMENT BLAT 2024 - copia.xlsx"
 df_e = r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Coop_Bellvis MunLleida\RENDIMENT BLAT 2023 - copia.xlsx"
 df_g = r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Coop_Bellvis MunLleida\2024 RENDIMENTS PANÍS - copia.xlsx"
+df_m = r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Coop_Bellvis MunLleida\2022 RENDIMENTS PANÍS - copia.xlsx"
 df_d = pd.read_excel(df_d)
 df_e = pd.read_excel(df_e)
 df_g = pd.read_excel(df_g)
+df_m = pd.read_excel(df_m)
 #print(df_d.columns)
 df_d['codsigpac'] = df_d['codigo'].str.replace(":", "", regex=False)
 df_e['codsigpac'] = df_e['codigo'].str.replace(":", "", regex=False)
 df_g['codsigpac'] = df_g['codigo'].str.replace(":", "", regex=False)
+df_m['codsigpac'] = df_m['codigo'].str.replace(":", "", regex=False)
 df_d.to_excel(r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Coop_Bellvis MunLleida\blat2024.xlsx", index=False)
 df_e.to_excel(r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Coop_Bellvis MunLleida\blat2023.xlsx", index=False)
 df_g.to_excel(r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Coop_Bellvis MunLleida\panis2024.xlsx", index=False)
+df_m.to_excel(r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Coop_Bellvis MunLleida\panis2022.xlsx", index=False)
 #############################################################################
+
 #esta linas concatenan varias columnas en una sola y guarda en un archivo nuevo de salida
+
 df_h = r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\CoopGuissona MunMassoteres\dades_produccio.xlsx"
 df_h = pd.read_excel(df_h)
 df_h['codsigpac'] = (df_h['PROV'].astype(str) + df_h['MUNICIPI'].astype(str) + df_h['POLIGON'].astype(str) + df_h['PARCEL.LA'].astype(str) + df_h['RECINTE'].astype(str))
@@ -86,14 +92,14 @@ df_i = r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Jordi_Quilez
 df_i = pd.read_excel(df_i)
 df_i['codsigpac'] = (df_i['Codi. Municipio'].astype(str) + df_i['Zona Polígono'].astype(str) + df_i['Parcela '].astype(str) + df_i['Recintes'].astype(str))
 df_i.to_excel(r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Jordi_Quilez_MunAlcarras\codsigpac.xlsx", index=False)
-###############################################################################
+# ###############################################################################
 df_j = r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Llenes MunTorrefeta i Florejacs_Tarroja de Segarra\Rendiments 2024 per a Quim.xlsx"
 df_j = pd.read_excel(df_j)
 df_j['codsigpac'] = df_j['ID_REC'].str.replace(":", "", regex=False)
 df_j.to_excel(r"D:\TFM 2025\TUTORES\Dades produccio per validacions\LLEIDA\Llenes MunTorrefeta i Florejacs_Tarroja de Segarra\sigpac.xlsx", index=False)
-##################################################################################
-#estas lineas, muestra en encabezado de un archivo excel, luego calcula las estadisticas de rendimiento por cultivo
-#generea un grafico del rendimiento comparado con una distribucion normal de tre tipos de cultivo
+# ##################################################################################
+# #estas lineas, muestra en encabezado de un archivo excel, luego calcula las estadisticas de rendimiento por cultivo
+# #generea un grafico del rendimiento comparado con una distribucion normal de tre tipos de cultivo
 df_k = r"D:\TFM 2025\estadistica_lleida\2024a.xlsx"
 df_k = pd.read_excel(df_k)
 print(df_k.head())
@@ -101,59 +107,59 @@ estadisticas = df_k.groupby('Cultivo')['Rendimiento  (Kg/Ha.)'].agg(['count', 'm
 estadisticas = estadisticas.reset_index()
 print(estadisticas)
 estadisticas.to_excel(r"D:\TFM 2025\estadistica_lleida\estadistica.xlsx", index=False)
-
-#Graficos
-rendimiento_Blat = df_k[df_k['Cultivo'] == 'Blat']['Rendimiento  (Kg/Ha.)']
-media = rendimiento_Blat.mean()
-std = rendimiento_Blat.std()
-x = np.linspace(rendimiento_Blat.min(), rendimiento_Blat.max(), 100)
-plt.figure(figsize=(8, 5))
-sns.histplot(rendimiento_Blat, bins=15, kde=False, stat='density', color='skyblue', label='Datos')
-plt.plot(x, norm.pdf(x, media, std), 'r-', lw=2, label='Distribución normal')
-plt.title('Distribución de rendimiento - Blat')
-plt.xlabel('Rendimiento')
-plt.ylabel('Densidad')
-plt.legend()
-plt.grid(True)
-plt.savefig(r"D:\TFM 2025\estadistica_lleida\graficas\estadisticaBlat.jpg")
-#plt.show()
-
-rendimiento_Ordi = df_k[df_k['Cultivo'] == 'Ordi']['Rendimiento  (Kg/Ha.)']
-media = rendimiento_Ordi.mean()
-std = rendimiento_Ordi.std()
-x = np.linspace(rendimiento_Ordi.min(), rendimiento_Ordi.max(), 100)
-plt.figure(figsize=(8, 5))
-sns.histplot(rendimiento_Ordi, bins=15, kde=False, stat='density', color='skyblue', label='Datos')
-plt.plot(x, norm.pdf(x, media, std), 'r-', lw=2, label='Distribución normal')
-plt.title('Distribución de rendimiento - Ordi')
-plt.xlabel('Rendimiento')
-plt.ylabel('Densidad')
-plt.legend()
-plt.grid(True)
-plt.savefig(r"D:\TFM 2025\estadistica_lleida\graficas\estadisticaOrdi.jpg")
-#plt.show()
-
-rendimiento_PANIS = df_k[df_k['Cultivo'] == 'PANIS']['Rendimiento  (Kg/Ha.)']
-media = rendimiento_PANIS.mean()
-std = rendimiento_PANIS.std()
-x = np.linspace(rendimiento_PANIS.min(), rendimiento_PANIS.max(), 100)
-plt.figure(figsize=(8, 5))
-sns.histplot(rendimiento_PANIS, bins=15, kde=False, stat='density', color='skyblue', label='Datos')
-plt.plot(x, norm.pdf(x, media, std), 'r-', lw=2, label='Distribución normal')
-plt.title('Distribución de rendimiento - PANIS')
-plt.xlabel('Rendimiento')
-plt.ylabel('Densidad')
-plt.legend()
-plt.grid(True)
-plt.savefig(r"D:\TFM 2025\estadistica_lleida\graficas\estadisticaPANIS.jpg")
-#plt.show()
-######################################
-max_min = df_k.groupby('Cultivo')['Rendimiento  (Kg/Ha.)'].agg(['min', 'max'])
-print(max_min)
-###############################
-g = sns.displot(data=df_k, x='Rendimiento  (Kg/Ha.)', col='Cultivo', col_wrap=4, bins=20, kde=True)
-g.set_axis_labels('Rendimiento  (Kg/Ha.', 'Frecuencia')
-g.fig.suptitle('Frecuencia de Rendimiento por Cultivo', y=1.5)
-plt.tight_layout()
-#plt.show()
-g.savefig(r"D:\TFM 2025\estadistica_lleida\graficas\estadisticageneral.jpg")
+#
+# #Graficos
+# rendimiento_Blat = df_k[df_k['Cultivo'] == 'Blat']['Rendimiento  (Kg/Ha.)']
+# media = rendimiento_Blat.mean()
+# std = rendimiento_Blat.std()
+# x = np.linspace(rendimiento_Blat.min(), rendimiento_Blat.max(), 100)
+# plt.figure(figsize=(8, 5))
+# sns.histplot(rendimiento_Blat, bins=15, kde=False, stat='density', color='skyblue', label='Datos')
+# plt.plot(x, norm.pdf(x, media, std), 'r-', lw=2, label='Distribución normal')
+# plt.title('Distribución de rendimiento - Blat')
+# plt.xlabel('Rendimiento')
+# plt.ylabel('Densidad')
+# plt.legend()
+# plt.grid(True)
+# plt.savefig(r"D:\TFM 2025\estadistica_lleida\graficas\estadisticaBlat.jpg")
+# #plt.show()
+#
+# rendimiento_Ordi = df_k[df_k['Cultivo'] == 'Ordi']['Rendimiento  (Kg/Ha.)']
+# media = rendimiento_Ordi.mean()
+# std = rendimiento_Ordi.std()
+# x = np.linspace(rendimiento_Ordi.min(), rendimiento_Ordi.max(), 100)
+# plt.figure(figsize=(8, 5))
+# sns.histplot(rendimiento_Ordi, bins=15, kde=False, stat='density', color='skyblue', label='Datos')
+# plt.plot(x, norm.pdf(x, media, std), 'r-', lw=2, label='Distribución normal')
+# plt.title('Distribución de rendimiento - Ordi')
+# plt.xlabel('Rendimiento')
+# plt.ylabel('Densidad')
+# plt.legend()
+# plt.grid(True)
+# plt.savefig(r"D:\TFM 2025\estadistica_lleida\graficas\estadisticaOrdi.jpg")
+# #plt.show()
+#
+# rendimiento_PANIS = df_k[df_k['Cultivo'] == 'PANIS']['Rendimiento  (Kg/Ha.)']
+# media = rendimiento_PANIS.mean()
+# std = rendimiento_PANIS.std()
+# x = np.linspace(rendimiento_PANIS.min(), rendimiento_PANIS.max(), 100)
+# plt.figure(figsize=(8, 5))
+# sns.histplot(rendimiento_PANIS, bins=15, kde=False, stat='density', color='skyblue', label='Datos')
+# plt.plot(x, norm.pdf(x, media, std), 'r-', lw=2, label='Distribución normal')
+# plt.title('Distribución de rendimiento - PANIS')
+# plt.xlabel('Rendimiento')
+# plt.ylabel('Densidad')
+# plt.legend()
+# plt.grid(True)
+# plt.savefig(r"D:\TFM 2025\estadistica_lleida\graficas\estadisticaPANIS.jpg")
+# #plt.show()
+# ######################################
+# max_min = df_k.groupby('Cultivo')['Rendimiento  (Kg/Ha.)'].agg(['min', 'max'])
+# print(max_min)
+# ###############################
+# g = sns.displot(data=df_k, x='Rendimiento  (Kg/Ha.)', col='Cultivo', col_wrap=4, bins=20, kde=True)
+# g.set_axis_labels('Rendimiento  (Kg/Ha.', 'Frecuencia')
+# g.fig.suptitle('Frecuencia de Rendimiento por Cultivo', y=1.5)
+# plt.tight_layout()
+# #plt.show()
+# g.savefig(r"D:\TFM 2025\estadistica_lleida\graficas\estadisticageneral.jpg")
