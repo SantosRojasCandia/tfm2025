@@ -1,0 +1,25 @@
+# Entorn d'Anaconda. Per instal·lar-ho:
+# conda env create -f irta_db_env
+name: irta_db_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - gdal
+  - numpy
+  - xarray
+  - xarray-spatial 
+  - rioxarray
+  - rasterstats
+  - pyproj
+  - numba
+  - geopandas
+  - openpyxl
+  - matplotlib
+  - seaborn
+  - bokeh
+  - netcdf4
+  - rasterio
+  - geojson
+  - spyder
