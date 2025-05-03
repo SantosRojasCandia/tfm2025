@@ -94,3 +94,4 @@ gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
 if 'dn_oid' in gdf_merged.columns:
     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
 gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2023.shp")
+
