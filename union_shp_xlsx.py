@@ -2,11 +2,11 @@ import pandas as pd
 import geopandas as gpd
 import os
 
-f = r'D:\TFM 2025\Lleida\shp\mun_lleida.shp'
-f2 = r"D:\TFM 2025\Lleida\datos_scrips\2024a.xlsx"
-f3 = r"D:\TFM 2025\Lleida\datos_scrips\2024_2da_siembra.xlsx"
-f4 = r"D:\TFM 2025\Lleida\datos_scrips\2023.xlsx"
-f5 = r"D:\TFM 2025\Lleida\datos_scrips\2022.xlsx"
+f = r'D:\TFM 2025\Lleida\shp\mun_lledia1.shp'
+f2 = r"D:\TFM 2025\Lleida\excel\2022.xlsx"
+f3 = r"D:\TFM 2025\Lleida\excel\2023.xlsx"
+f4 = r"D:\TFM 2025\Lleida\excel\2024a.xlsx"
+f5 = r"D:\TFM 2025\Lleida\excel\2024_2da_siembra.xlsx"
 #os.path.isfile(f2)
 #gdf = gpd.read_file(f)
 #gdf.columns
@@ -43,7 +43,7 @@ f5 = r"D:\TFM 2025\Lleida\datos_scrips\2022.xlsx"
 #df2.to_file("Mun25170Parc_adp_v2.geojson", driver="GeoJSON")
 
 #############################################################
-#unir shp con produccion 2024 en Lleida
+#unir shp con produccion 2024a en Lleida
 f = gpd.read_file(f)
 f2 = pd.read_excel(f2)
 f["COD"] = f["COD"].astype(int)
@@ -55,10 +55,11 @@ gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
 if 'dn_oid' in gdf_merged.columns:
     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
 gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-repetidos = gdf_merged['COD'].value_counts()
-repetidos = repetidos[repetidos > 1]
-print(repetidos)
-gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024.shp")
+gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
+# repetidos = gdf_merged['COD'].value_counts()
+# repetidos = repetidos[repetidos > 1]
+# print(repetidos)
+gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2022.shp")
 
 ###################################
 #unir shp con segunda cosecha 2024 Lleida
@@ -72,10 +73,11 @@ gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
 if 'dn_oid' in gdf_merged.columns:
     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
 gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-repetidos = gdf_merged['COD'].value_counts()
-repetidos = repetidos[repetidos > 1]
-print(repetidos)
-gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024_2da_cosecha.shp")
+gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
+# repetidos = gdf_merged['COD'].value_counts()
+# repetidos = repetidos[repetidos > 1]
+# print(repetidos)
+gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2023.shp")
 
 #########################################
 #unir shp con segunda cosecha 2023 Lleida
@@ -89,10 +91,11 @@ gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
 if 'dn_oid' in gdf_merged.columns:
     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
 gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-repetidos = gdf_merged['COD'].value_counts()
-repetidos = repetidos[repetidos > 1]
-print(repetidos)
-gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2023.shp")
+gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
+# repetidos = gdf_merged['COD'].value_counts()
+# repetidos = repetidos[repetidos > 1]
+# print(repetidos)
+gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024a.shp")
 
 ###################################
 #unir shp con segunda cosecha 2022 Lleida
@@ -106,8 +109,9 @@ gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
 if 'dn_oid' in gdf_merged.columns:
     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
 gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-repetidos = gdf_merged['COD'].value_counts()
-repetidos = repetidos[repetidos > 1]
-print(repetidos)
-gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2023.shp")
+gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
+# repetidos = gdf_merged['COD'].value_counts()
+# repetidos = repetidos[repetidos > 1]
+# print(repetidos)
+gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024_2da_siembra.shp")
 
