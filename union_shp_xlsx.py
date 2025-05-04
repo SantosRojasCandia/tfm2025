@@ -54,10 +54,6 @@ gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:1
 gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
 if 'dn_oid' in gdf_merged.columns:
     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
-gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-repetidos = gdf_merged['COD'].value_counts()
-repetidos = repetidos[repetidos > 1]
-print(repetidos)
 gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024.shp")
 
 ###################################
@@ -71,10 +67,6 @@ gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:1
 gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
 if 'dn_oid' in gdf_merged.columns:
     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
-gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-repetidos = gdf_merged['COD'].value_counts()
-repetidos = repetidos[repetidos > 1]
-print(repetidos)
 gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024_2da_cosecha.shp")
 
 #########################################
@@ -88,10 +80,6 @@ gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:1
 gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
 if 'dn_oid' in gdf_merged.columns:
     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
-gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-repetidos = gdf_merged['COD'].value_counts()
-repetidos = repetidos[repetidos > 1]
-print(repetidos)
 gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2023.shp")
 
 ###################################
@@ -105,9 +93,5 @@ gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:1
 gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
 if 'dn_oid' in gdf_merged.columns:
     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
-gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-repetidos = gdf_merged['COD'].value_counts()
-repetidos = repetidos[repetidos > 1]
-print(repetidos)
-gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2022.shp")
+gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2023.shp")
 
