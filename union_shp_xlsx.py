@@ -3,10 +3,10 @@ import geopandas as gpd
 import os
 
 f = r'D:\TFM 2025\Lleida\shp\mun_lledia1.shp'
-f2 = r"D:\TFM 2025\Lleida\excel\2022.xlsx"
-f3 = r"D:\TFM 2025\Lleida\excel\2023.xlsx"
-f4 = r"D:\TFM 2025\Lleida\excel\2024a.xlsx"
-f5 = r"D:\TFM 2025\Lleida\excel\2024_2da_siembra.xlsx"
+f2 = r"D:\TFM 2025\Lleida\datos_scrips\2022.xlsx"
+f3 = r"D:\TFM 2025\Lleida\datos_scrips\2023.xlsx"
+f4 = r"D:\TFM 2025\Lleida\datos_scrips\2024a.xlsx"
+f5 = r"D:\TFM 2025\Lleida\datos_scrips\2024_2da_siembra.xlsx"
 #os.path.isfile(f2)
 #gdf = gpd.read_file(f)
 #gdf.columns
