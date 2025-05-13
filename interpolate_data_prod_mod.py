@@ -18,22 +18,22 @@ import geopandas as gpd
 import seaborn as sns
 
 # Carpeta de treball
-w_f = r'D:\TFM 2025\Lleida\out_csv\FAPAR'
-csv_f = pth.join(w_f, 'prod_lleida_2024_2da_siembra_FAPAR_mean.csv')
-crop_f = r'D:\TFM 2025\Lleida\Shp_final_lleida\prod_lleida_2024_2da_siembra.shp'
+w_f = r'D:\TFM 2025\Lleida\out_csv\LAI'
+csv_f = pth.join(w_f, 'prod_lleida_2022_LAI_mean.csv')
+crop_f = r'D:\TFM 2025\Lleida\Shp_final_lleida\prod_lleida_2022.shp'
 
 out_fold = pth.join(w_f, 'clean')
 plot_smooth_f = pth.join(out_fold, r'smooths')
 num_plots = None
 
-dict_filtering = {'threshold': 0.04, 'window': 3}  # FAPAR
+dict_filtering = {'threshold': 0.08, 'window': 3}  # FAPAR
 dict_smoothing = {'window': 10}  # FAPAR
 
 # Crear carpetes si no existeixen
 for fold in [out_fold, plot_smooth_f]:
     os.makedirs(fold, exist_ok=True)
 
-def remove_outliers(df, threshold=3, window=3):
+def remove_outliers(df, threshold=0.5, window=3):
     ndiff = (df - df.rolling(window, min_periods=1, center=True).mean()).abs()
     df[ndiff > threshold] = np.nan
     return df
@@ -49,7 +49,7 @@ def df_clean(df, filtering=False, interpolate=False, smoothing=False, visualize=
     df2 = df2.reindex(pd.date_range(df2.index.min(), df2.index.max()))
 
     if filtering:
-        dict_filt = {'threshold': 3, 'window': 3}
+        dict_filt = {'threshold': 0.5, 'window': 3}
         dict_filt.update(filtering_options)
         for col in df2.columns:
             sol = remove_outliers(df2[col].dropna().copy(), **dict_filt)
@@ -86,8 +86,8 @@ def df_clean(df, filtering=False, interpolate=False, smoothing=False, visualize=
                     smt_df[num].plot(ax=ax, style='g-', label='smoothed')
 
                 ax.legend()
-                ax.set_ylim((0, 1))
-                ax.set_ylabel('FAPAR [-]')
+                ax.set_ylim((0, 5))
+                ax.set_ylabel('LAI [-]')
 
                 # Convertir la clave a float de forma segura
                 try:
