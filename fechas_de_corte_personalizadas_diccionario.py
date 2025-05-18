@@ -22,6 +22,15 @@ dict_crop = df_crop['Cultivo'].to_dict()
 # Año
 any_s = pth.basename(csv_f).split('_')[2]
 
+# Diccionario de fechas por cultivo
+fechas_por_cultivo = {
+    "Blat": ("20221201", "20230725"),
+    "Colza": ("20221201", "20230725"),
+    "Ordi": ("20221201", "20230725"),
+    "Triticale": ("20221201", "20230725")
+    # Agrega más cultivos y fechas aquí según sea necesario
+}
+
 # Cargar CSVs
 df_i = pd.read_csv(csv_f, index_col=0, parse_dates=True)
 df_i2 = pd.read_csv(csv_f2, index_col=0, parse_dates=True)
@@ -38,24 +47,28 @@ for cult in list_col:
         print(f"Cultivo no encontrado para parcela {cult}")
         continue
 
-    # Fecha de corte
-    if type_c == "PANIS":
-        date_cut = f"{any_s}0101"
-    else:
-        date_cut = f"{str(int(any_s)-1)}1101"
+    # Fechas personalizadas por cultivo
+    try:
+        fecha_inicio_str, fecha_fin_str = fechas_por_cultivo[type_c]
+    except KeyError:
+        print(f"No se definió rango de fechas para cultivo {type_c}. Parcela {cult} omitida.")
+        continue
 
-    df_a = df_c[pd.to_datetime("20220101", format="%Y%m%d"):]
+    fecha_inicio = pd.to_datetime(fecha_inicio_str, format="%Y%m%d")
+    fecha_fin = pd.to_datetime(fecha_fin_str, format="%Y%m%d")
+    df_a = df_c[fecha_inicio:fecha_fin]
+
     if df_a.empty:
-        print(f"Parcela {cult} vacía tras cortar fechas.")
+        print(f"Parcela {cult} ({type_c}) vacía tras cortar entre {fecha_inicio.date()} y {fecha_fin.date()}.")
         continue
 
     print(f"Parcela {cult} ({type_c}): {df_a.index.min().date()} -> {df_a.index.max().date()}")
 
-    serie = df_a[cult].copy() #extrae la serie de valores FAPAR diarios
-    delta = serie.diff()   #obtiene la variación de valores de FAPAR entre un dia y otro
-    umbral_crecimiento = 0.005  #valor de incremento de delta
-    duracion_min = 10   # dias en los que el incremento de decrecimiento se mantiene por encima de los valores asignados
-    umbral_decrecimiento = -0.001 #valor de decrecimiento
+    serie = df_a[cult].copy()
+    delta = serie.diff()
+    umbral_crecimiento = 0.004
+    duracion_min = 20
+    umbral_decrecimiento = -0.001
 
     # Inicio del crecimiento
     inicio = None
@@ -70,7 +83,7 @@ for cult in list_col:
     # Fin del crecimiento
     fin = None
     for i in range(delta.index.get_loc(inicio) + duracion_min, len(delta) - duracion_min):
-        if (delta.iloc[i:i+duracion_min] < umbral_crecimiento / 2).all(): #cuando detecta que el crecimiento es la mitad del valor asignado (0.0025)y este se mantiene, marca el fin del crecimiento
+        if (delta.iloc[i:i+duracion_min] < umbral_crecimiento / 2).all():
             fin = delta.index[i]
             break
     if not fin:
@@ -82,11 +95,9 @@ for cult in list_col:
         print(f"No hay datos tras el crecimiento en parcela {cult}")
         continue
 
-    # Inicio del decrecimiento (pico)
     inicio_decrecimiento = serie_post.idxmax()
     valor_max = serie_post.max()
 
-    # Fin del decrecimiento
     serie_derivada = serie_post.diff()
     fin_decrecimiento = None
     for i in range(serie_post.index.get_loc(inicio_decrecimiento) + 1, len(serie_post) - duracion_min):
@@ -98,7 +109,7 @@ for cult in list_col:
         fin_decrecimiento = serie_post.index[-1]
 
     # Gráfico
-    df_c2 = df_i2[[cult]][pd.to_datetime("20220101", format="%Y%m%d"):]
+    df_c2 = df_i2[[cult]][fecha_inicio:fecha_fin]
     fig, ax = plt.subplots(figsize=(10, 4))
     df_a.plot(ax=ax, label='Serie limpia')
     df_c2.plot(ax=ax, label='Serie original', linestyle='--')
@@ -126,6 +137,6 @@ for cult in list_col:
 
 # Guardar resultados
 df_out = pd.DataFrame(registros)
-output_csv = pth.join(out_fold, 'ciclo_FAPAR_completo_2022.csv')
+output_csv = pth.join(out_fold, 'ciclo_FAPAR_completo_2023.csv')
 df_out.to_csv(output_csv, index=False)
 print(f"\nCSV guardado: {output_csv}")

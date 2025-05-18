@@ -43,7 +43,7 @@ f5 = r"D:\TFM 2025\Lleida\datos_scrips\2024_2da_siembra.xlsx"
 #df2.to_file("Mun25170Parc_adp_v2.geojson", driver="GeoJSON")
 
 #############################################################
-#unir shp con produccion 2024a en Lleida
+#unir shp con produccion 2022 en Lleida
 f = gpd.read_file(f)
 f2 = pd.read_excel(f2)
 f["COD"] = f["COD"].astype(int)
@@ -62,7 +62,7 @@ gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
 gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2022.shp")
 
 ###################################
-#unir shp con segunda cosecha 2024 Lleida
+#unir shp con segunda cosecha 2023 Lleida
 f3 = pd.read_excel(f3)
 f["COD"] = f["COD"].astype(int)
 f3["COD"] = f3["COD"].astype(int)
@@ -80,38 +80,38 @@ gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
 gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2023.shp")
 
 #########################################
-#unir shp con segunda cosecha 2023 Lleida
-f4 = pd.read_excel(f4)
-f["COD"] = f["COD"].astype(int)
-f4["COD"] = f4["COD"].astype(int)
-gdf_merged = f.merge(f4, on="COD", how="left")
-gdf_merged = gdf_merged.rename(columns={'Rendimiento  (Kg/Ha.)': 'Rend_KgHa'})
-gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:10] for col in gdf_merged.columns]
-gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
-if 'dn_oid' in gdf_merged.columns:
-    gdf_merged = gdf_merged.drop(columns=['dn_oid'])
-gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
+#unir shp con segunda cosecha 2024 Lleida
+# f4 = pd.read_excel(f4)
+# f["COD"] = f["COD"].astype(int)
+# f4["COD"] = f4["COD"].astype(int)
+# gdf_merged = f.merge(f4, on="COD", how="left")
+# gdf_merged = gdf_merged.rename(columns={'Rendimiento  (Kg/Ha.)': 'Rend_KgHa'})
+# gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:10] for col in gdf_merged.columns]
+# gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
+# if 'dn_oid' in gdf_merged.columns:
+#     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
+# gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
+# gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
 # repetidos = gdf_merged['COD'].value_counts()
 # repetidos = repetidos[repetidos > 1]
 # print(repetidos)
-gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024a.shp")
+# gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024a.shp")
 
 ###################################
-#unir shp con segunda cosecha 2022 Lleida
-f5 = pd.read_excel(f5)
-f["COD"] = f["COD"].astype(int)
-f5["COD"] = f5["COD"].astype(int)
-gdf_merged = f.merge(f5, on="COD", how="left")
-gdf_merged = gdf_merged.rename(columns={'Rendimiento  (Kg/Ha.)': 'Rend_KgHa'})
-gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:10] for col in gdf_merged.columns]
-gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
-if 'dn_oid' in gdf_merged.columns:
-    gdf_merged = gdf_merged.drop(columns=['dn_oid'])
-gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
-# repetidos = gdf_merged['COD'].value_counts()
-# repetidos = repetidos[repetidos > 1]
-# print(repetidos)
-gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024_2da_siembra.shp")
+#unir shp con segunda cosecha 2024 2da siembra Lleida
+# f5 = pd.read_excel(f5)
+# f["COD"] = f["COD"].astype(int)
+# f5["COD"] = f5["COD"].astype(int)
+# gdf_merged = f.merge(f5, on="COD", how="left")
+# gdf_merged = gdf_merged.rename(columns={'Rendimiento  (Kg/Ha.)': 'Rend_KgHa'})
+# gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:10] for col in gdf_merged.columns]
+# gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
+# if 'dn_oid' in gdf_merged.columns:
+#     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
+# gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
+# gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
+# # repetidos = gdf_merged['COD'].value_counts()
+# # repetidos = repetidos[repetidos > 1]
+# # print(repetidos)
+# gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024_2da_siembra.shp")
 
