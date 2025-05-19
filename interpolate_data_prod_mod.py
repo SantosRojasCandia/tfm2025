@@ -18,9 +18,9 @@ import geopandas as gpd
 import seaborn as sns
 
 # Carpeta de treball
-w_f = r'D:\TFM 2025\Lleida\out_csv\LAI'
-csv_f = pth.join(w_f, 'prod_lleida_2022_LAI_mean.csv')
-crop_f = r'D:\TFM 2025\Lleida\Shp_final_lleida\prod_lleida_2022.shp'
+w_f = r'D:\TFM 2025\Lleida\out_csv\FAPAR'
+csv_f = pth.join(w_f, 'prod_lleida_2024a_FAPAR_mean.csv')
+crop_f = r'D:\TFM 2025\Lleida\shp\prod_lleida_2024a.shp'
 
 out_fold = pth.join(w_f, 'clean')
 plot_smooth_f = pth.join(out_fold, r'smooths')

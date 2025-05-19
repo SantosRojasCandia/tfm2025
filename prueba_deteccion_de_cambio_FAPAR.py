@@ -7,9 +7,9 @@ import os.path as pth
 
 # Paths
 w_f = r'D:\TFM 2025\Lleida\out_csv\FAPAR\clean'
-csv_f = r'D:\TFM 2025\Lleida\out_csv\FAPAR\clean\prod_lleida_2023_FAPAR_mean.csv_clean.csv'
-csv_f2 = r'D:\TFM 2025\Lleida\out_csv\FAPAR\prod_lleida_2023_FAPAR_mean.csv'
-crop_f = r'D:\TFM 2025\Lleida\Shp_final_lleida\prod_lleida_2023.shp'
+csv_f = r'D:\TFM 2025\Lleida\out_csv\FAPAR\clean\prod_lleida_2024_FAPAR_mean.csv_clean.csv'
+csv_f2 = r'D:\TFM 2025\Lleida\out_csv\FAPAR\prod_lleida_2024a_FAPAR_mean.csv'
+crop_f = r'D:\TFM 2025\Lleida\Shp_final_lleida\prod_lleida_2024.shp'
 out_fold = pth.join(w_f, 'proves')
 
 os.makedirs(out_fold, exist_ok=True)

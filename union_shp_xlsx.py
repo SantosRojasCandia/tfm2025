@@ -81,21 +81,21 @@ gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2023.shp")
 
 #########################################
 #unir shp con segunda cosecha 2024 Lleida
-# f4 = pd.read_excel(f4)
-# f["COD"] = f["COD"].astype(int)
-# f4["COD"] = f4["COD"].astype(int)
-# gdf_merged = f.merge(f4, on="COD", how="left")
-# gdf_merged = gdf_merged.rename(columns={'Rendimiento  (Kg/Ha.)': 'Rend_KgHa'})
-# gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:10] for col in gdf_merged.columns]
-# gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
-# if 'dn_oid' in gdf_merged.columns:
-#     gdf_merged = gdf_merged.drop(columns=['dn_oid'])
-# gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
-# gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
-# repetidos = gdf_merged['COD'].value_counts()
-# repetidos = repetidos[repetidos > 1]
-# print(repetidos)
-# gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024a.shp")
+f4 = pd.read_excel(f4)
+f["COD"] = f["COD"].astype(int)
+f4["COD"] = f4["COD"].astype(int)
+gdf_merged = f.merge(f4, on="COD", how="left")
+gdf_merged = gdf_merged.rename(columns={'Rendimiento  (Kg/Ha.)': 'Rend_KgHa'})
+gdf_merged.columns = [col.replace(" ", "_").replace("(", "").replace(")", "")[:10] for col in gdf_merged.columns]
+gdf_merged['codsigpac'] = gdf_merged['codsigpac'].astype(str)
+if 'dn_oid' in gdf_merged.columns:
+    gdf_merged = gdf_merged.drop(columns=['dn_oid'])
+gdf_merged = gdf_merged[gdf_merged["Rend_KgHa"] > 1]
+gdf_merged = gdf_merged.dissolve(by='COD', as_index=False)
+repetidos = gdf_merged['COD'].value_counts()
+repetidos = repetidos[repetidos > 1]
+print(repetidos)
+gdf_merged.to_file(r"D:\TFM 2025\Lleida\shp\prod_lleida_2024a.shp")
 
 ###################################
 #unir shp con segunda cosecha 2024 2da siembra Lleida
