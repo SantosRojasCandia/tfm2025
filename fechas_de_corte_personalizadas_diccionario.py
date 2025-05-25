@@ -6,8 +6,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os.path as pth
 
-var_n = "FAPAR"
-any_s = "2024a"
+var_n = "LAI"
+any_s = "2024_2da_siembra"
+
 #any_s = "2024_2da_siembra"
 
 # Paths
@@ -35,7 +36,7 @@ fechas_por_cultivo = {
     "Ordi": (f"{any_ant_s}1101", f"{any_s}0925"),
     "Triticale": (f"{any_ant_s}1201", f"{any_s}0925"),
     "Civada": (f"{any_ant_s}1201", f"{any_s}0925"),
-    "Panis": (f"{any_s}0201", f"{any_s}1225")
+    "Panis": (f"{any_s}0701", f"{any_s}1225")
 }
 
 if var_n == "FAPAR":
@@ -170,7 +171,7 @@ for cult in list_col:
         'Inicio_decrecimiento': inicio_decrecimiento.date(),
         'Fin_decrecimiento': fin_decrecimiento.date(),
         'Duracion_decrecimiento_dias': (fin_decrecimiento - inicio_decrecimiento).days,
-        'Valor_max_FAPAR': round(valor_max, 2)
+        'Valor_max_LAI': round(valor_max, 2)
     })
 
 # Guardar resultados
