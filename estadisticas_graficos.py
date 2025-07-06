@@ -21,18 +21,18 @@ df_d = pd.read_excel(df_d)
 estadisticas = df_a.groupby('Cultivo')['Rendimiento  (Kg/Ha.)'].agg(['count', 'mean', 'min', 'max', 'std', 'sum'])
 estadisticas = estadisticas.reset_index()
 estadisticas.to_excel(r"D:\TFM 2025\Lleida\datos_scrips\estadisticalleida2022.xlsx", index=False)
-
-#estadistica para rendimiento 2023
+#
+# #estadistica para rendimiento 2023
 estadisticas = df_b.groupby('Cultivo')['Rendimiento  (Kg/Ha.)'].agg(['count', 'mean', 'min', 'max', 'std', 'sum'])
 estadisticas = estadisticas.reset_index()
 estadisticas.to_excel(r"D:\TFM 2025\Lleida\datos_scrips\estadisticalleida2023.xlsx", index=False)
-
-# estadistica para rendimiento 2024_2da_siembra
+#
+# # estadistica para rendimiento 2024_2da_siembra
 estadisticas = df_c.groupby('Cultivo')['Rendimiento  (Kg/Ha.)'].agg(['count', 'mean', 'min', 'max', 'std', 'sum'])
 estadisticas = estadisticas.reset_index()
 estadisticas.to_excel(r"D:\TFM 2025\Lleida\datos_scrips\estadisticalleida2024_2da_siembra.xlsx", index=False)
-
-# estadistica para rendimiento 2024a
+#
+# # estadistica para rendimiento 2024a
 estadisticas = df_d.groupby('Cultivo')['Rendimiento  (Kg/Ha.)'].agg(['count', 'mean', 'min', 'max', 'std', 'sum'])
 estadisticas = estadisticas.reset_index()
 estadisticas.to_excel(r"D:\TFM 2025\Lleida\datos_scrips\estadisticalleida2024a.xlsx", index=False)
@@ -89,6 +89,7 @@ estadisticas.to_excel(r"D:\TFM 2025\Lleida\datos_scrips\estadisticalleida2024a.x
 # grafico 2022
 g = sns.displot(data=df_a, x='Rendimiento  (Kg/Ha.)', col='Cultivo', col_wrap=4, bins=20, kde=True)
 g.set_axis_labels('Rendimiento  Kg/Ha.', 'Frecuencia')
+# g.set(xlim=(0, 15000))
 g.fig.suptitle('Frecuencia de Rendimiento por Cultivo', y=1.5)
 # plt.tight_layout()
 #plt.show()
