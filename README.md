@@ -47,8 +47,3 @@ Todos los scripts están escritos en **Python 3.x** y utilizan las siguientes li
 - `pandas`, `numpy`, `matplotlib`, `seaborn`
 - `geopandas`, `rasterstats`, `xarray`
 - `shapely`, `datetime`, `scipy`
-
-Podés instalar las dependencias con:
-
-```bash
-pip install -r requirements.txt
