@@ -33,13 +33,13 @@ El objetivo principal fue estimar el rendimiento agrícola a partir de la evapot
 - `add_data_tall.py`  
   Añadir fecha de corte y los valores de ETA y Precipitación.
 
-  - `ccrr_calc_adp_prod.py`  
+- `ccrr_calc_adp_prod.py`  
   Para calcular la ADP (es el mismo que la ETA).
 
- - `ccrr_adp_potencial_prod.py`  
+- `ccrr_adp_potencial_prod.py`  
   Para tener la ADP pontencial (de las ccrr o general) y tener shp finales.
 
- - `merge_csv_prod.py`  
+- `merge_csv_prod.py`  
   Tener las relaciones entre ADP(Eta) y Yeld.
 
 ---
